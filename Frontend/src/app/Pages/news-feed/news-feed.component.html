@@ -1,0 +1,101 @@
+<nav class="navbar navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand">News Feed</a>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <input #searchquery class="form-control-sm" type="text"  placeholder="Search" />
+          <button class="btn btn-light" (click)="filter_search(searchquery.value)">Search</button>
+          <button class="btn btn-light register " routerLink ='/Register'>Register</button>
+          <button class="btn btn-light " routerLink ='/Login'>Log In</button>
+      </div>
+  </div>
+</nav>
+
+
+<div class="container">
+  <h1 class="top_heading">Latest News</h1>
+    <p *ngIf="user_id == undefined ">Log in to view Content..</p>
+  <div class="container">
+      <label class="form-label" style="margin-right:10px;">Category : </label><br>
+      <button type="button" class="btn btn-outline-primary btn_custom" (click)="filter_category('business')">Business</button>
+      <button type="button" class="btn btn-outline-secondary btn_custom" (click)="filter_category('entertainment')">Entertainment</button>
+      <button type="button" class="btn btn-outline-success btn_custom" (click)="filter_category('general')">General</button>
+      <button type="button" class="btn btn-outline-danger btn_custom" (click)="filter_category('health')">Health</button>
+      <button type="button" class="btn btn-outline-warning btn_custom" (click)="filter_category('science')">Science</button>
+      <button type="button" class="btn btn-outline-info btn_custom" (click)="filter_category('sports')">Sports</button>
+      <button type="button" class="btn btn-outline-dark" (click)="filter_category('technology')">Technology</button>
+      <br>
+      <label class="form-label" style="margin-top:10px;">Country : </label><br>
+      <span class="badge rounded-pill bg-primary btn_custom" (click)="filter_country('in')" >India</span>
+      <span class="badge rounded-pill bg-primary btn_custom" (click)="filter_country('us')" >USA</span>
+      <span class="badge rounded-pill bg-primary btn_custom" (click)="filter_country('au')" >Australia</span>
+      <span class="badge rounded-pill bg-primary btn_custom" (click)="filter_country('ru')" >Russia</span>
+      <span class="badge rounded-pill bg-primary btn_custom" (click)="filter_country('cn')" >China</span>
+      <span class="badge rounded-pill bg-primary btn_custom" (click)="filter_country('jp')" >Japan</span>
+      <span class="badge rounded-pill bg-primary btn_custom" (click)="filter_country('gb')" >Great Britain</span>
+      <span class="badge rounded-pill bg-primary btn_custom" (click)="filter_country('br')" >Brazil</span>
+      <span class="badge rounded-pill bg-primary btn_custom" (click)="filter_country('kr')" >South Korea</span>
+      <span class="badge rounded-pill bg-primary btn_custom" (click)="filter_country('il')" >Israel</span>
+  </div>
+  <div class="row row-news">
+    <div class="col col-8  box-1 ">
+      <div *ngFor="let news of news_feed">
+            <div *ngIf="news.articles.length == 0">
+              No Content !
+            </div>
+        <div class="card mb-2" *ngFor = "let article of news.articles">
+            <img src="{{article.urlToImage}}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{article.title}}</h5>
+              <p class="card-text">{{article.content}}</p>
+              <p>
+                Go To : {{article.url}}
+              </p>
+              <p class="card-text"><small class="text-muted">{{article.publishedAt}}</small></p>
+              <div class="card-img-overlay">
+                    <h1 class="justify-content-md-start text-uppercase font-monospace text-white">
+                      {{article.source.name}}
+                    </h1>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end btn-tool">
+                    <button  class="btn btn-primary me-md-2" type="button" (click)="addtofav(article.title)">Add to Favourites</button>
+                    <button  class="btn btn-danger" type="button" (click)="addtosub(article.source.name)" >Subscribe</button>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="col  box-2">
+        <div class="list-group">
+          <div class="list-group-item list-group-item-action active d-flex justify-content-between align-items-center">
+              Favourites
+            <span class="badge bg-primary rounded-pill">{{fav_sub[0][0].Favourites.length}}</span>
+          </div>
+            <div class="list-group-item click_sub" *ngFor="let fav of fav_sub[0][0].Favourites" (click)="filter_search(fav.substr(0,15))">
+              {{fav}}
+            </div>
+          </div>
+          <br/>
+          <div class="list-group">
+          <div class="list-group-item list-group-item-action active d-flex justify-content-between align-items-center">
+              Subscribe Channel
+            <span class="badge bg-primary rounded-pill">{{fav_sub[0][0].Subscribe_Channels.length}}</span>
+          </div>
+          <div class="list-group-item click_sub" *ngFor="let fav of fav_sub[0][0].Subscribe_Channels" (click)="filter_source(fav)">
+            {{fav}}
+          </div>
+          </div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom">
+  Made By : Sanket Maruti Magar
+  <p>
+  Email : sanketmagar2001@gmail.com
+  Git Hub Profile :
+  <a href="https://github.com/sanketmagar2001" style="margin-right:5px;">Git Hub Link</a>
+  <a href="https://newsapi.org/">Used API Link</a>
+  </p>
+</div>
+

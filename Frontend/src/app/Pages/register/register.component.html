@@ -1,0 +1,26 @@
+<nav class="navbar navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand">News Feed</a>
+    <div>
+    <button class="btn btn-light " routerLink ='/Login'>Log In</button>
+    </div>
+  </div>
+</nav>
+
+<div class="container register">
+  <h1>Register</h1>
+  <p *ngFor="let email of email_id">
+    {{email.Name}} is Registered , Please Log in !
+  </p>
+  <div class="form-group">
+    <label for="exampleInputEmail1">UserName</label>
+    <input #username class="form-control"  placeholder="Enter UserName">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input #password type="password" class="form-control"  placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-primary" (click)="registerUser(username.value,password.value)" >Submit</button>
+</div>
+
+
